@@ -1,6 +1,10 @@
 @extends('layouts.app')
 
 @section('content')
+  <form method="POST">
+      @csrf
+  </form>
+
   @include('partials.page-header')
 
   @if (! have_posts())
