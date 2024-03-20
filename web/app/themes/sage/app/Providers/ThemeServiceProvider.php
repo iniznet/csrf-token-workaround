@@ -3,6 +3,8 @@
 namespace App\Providers;
 
 use Roots\Acorn\Sage\SageServiceProvider;
+use Illuminate\Support\Facades\Blade;
+
 
 class ThemeServiceProvider extends SageServiceProvider
 {
@@ -14,6 +16,16 @@ class ThemeServiceProvider extends SageServiceProvider
     public function register()
     {
         parent::register();
+
+        add_filter('wp_head', function () {
+            echo Blade::render('@livewireStyles');
+        });
+
+        add_filter('wp_footer', function () {
+            echo Blade::render('@livewireScripts');
+        });
+
+        add_action('wp_loaded', fn () => app('session')->isStarted() || app('session')->start());
     }
 
     /**
